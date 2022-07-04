@@ -1,0 +1,8 @@
+python=3.10
+matplotlib
+numpy
+scipy
+uproot
+pandas
+iminuit
+pylint
