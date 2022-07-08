@@ -41,7 +41,7 @@ plot_histogram(
     save_name="lep_n_before_cuts.png")
 # 2nd one justifies cutting on exactly two -- only lose 85 events
 
-# make cuts
+# make cuts (2 leptons, same type opposite sign, pt>25GeV)
 data = cuts.make_cuts(data, particle_id=PARTICLE_ID)
 print(len(data), 'events left after cuts')
 
