@@ -1,4 +1,4 @@
-"""for doing the main thing -- TODO fix this docstring"""
+"""Main module for the collider physics tutorial at TRISEP 2022"""
 
 # physics
 import numpy as np
