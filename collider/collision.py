@@ -31,8 +31,14 @@ data = file_handler.open_file(
 print(len(data), 'events to start')
 
 # make some pre-cut histograms
-plot_histogram(data['lep_pt'] / 1000, 25, (0, 100), "lep_pt_without_cuts.png")
-plot_histogram(data['lep_n'], 3, (1, 4), "lep_n_before_cuts.png")
+plot_histogram(
+    data['lep_pt'] / 1000, n_bins=25, range_tuple=(0, 100),
+    xlabel="pT [GeV]", ylabel="counts", title="Lepton pT before cuts",
+    save_name="lep_pt_without_cuts.png")
+plot_histogram(
+    data['lep_n'], n_bins=3, range_tuple=(1, 4),
+    xlabel="lepton number", ylabel="counts", title="Lepton number before cuts",
+    save_name="lep_n_before_cuts.png")
 # 2nd one justifies cutting on exactly two -- only lose 85 events
 
 # make cuts
@@ -47,23 +53,65 @@ lep_E = data['lep_E'] / 1000  # MeV --> GeV
 lep_n = data['lep_n']
 
 # plot combined lepton properties after cuts
-plot_histogram(lep_pt, 25, (0, 100), "lep_pt.png")
-plot_histogram(lep_eta, 25, (0, 4), "lep_eta.png")
-plot_histogram(lep_phi, 25, (0, np.pi), "lep_phi.png")
-plot_histogram(lep_E, 25, (0, 100), "lep_E.png")
+plot_histogram(
+    lep_pt, n_bins=25, range_tuple=(0, 100),
+    xlabel="lepton pT", ylabel="counts", title="Lepton pT after cuts",
+    save_name="lep_pt.png")
+plot_histogram(
+    lep_eta, n_bins=25, range_tuple=(0, 4),
+    xlabel="lepton eta", ylabel="counts", title="Lepton eta after cuts",
+    save_name="lep_eta.png")
+plot_histogram(
+    lep_phi, n_bins=25, range_tuple=(0, np.pi),
+    xlabel="lepton phi", ylabel="counts", title="Lepton phi after cuts",
+    save_name="lep_phi.png")
+plot_histogram(
+    lep_E, n_bins=25, range_tuple=(0, 100),
+    xlabel="lepton E", ylabel="counts", title="Lepton E after cuts",
+    save_name="lep_E.png")
 
 # and individual properties
-plot_histogram(lep_pt[:, 0], 25, (0, 100), "lep_0_pt.png")
-plot_histogram(lep_eta[:, 0], 25, (0, 4), "lep_0_eta.png")
-plot_histogram(lep_phi[:, 0], 25, (0, np.pi), "lep_0_phi.png")
-plot_histogram(lep_E[:, 0], 25, (0, 100), "lep_0_E.png")
+plot_histogram(
+    lep_pt[:, 0], n_bins=25, range_tuple=(0, 100),
+    xlabel="leading lepton pT", ylabel="counts",
+    title="Leading lepton pT after cuts",
+    save_name="lep_0_pt.png")
+plot_histogram(
+    lep_eta[:, 0], n_bins=25, range_tuple=(0, 4),
+    xlabel="leading lepton eta", ylabel="counts",
+    title="Leading lepton eta after cuts",
+    save_name="lep_0_eta.png")
+plot_histogram(
+    lep_phi[:, 0], n_bins=25, range_tuple=(0, np.pi),
+    xlabel="leading lepton phi", ylabel="counts",
+    title="Leading lepton phi after cuts",
+    save_name="lep_0_phi.png")
+plot_histogram(
+    lep_E[:, 0], n_bins=25, range_tuple=(0, 100),
+    xlabel="leading lepton E", ylabel="counts",
+    title="Leading lepton E after cuts",
+    save_name="lep_0_E.png")
 
-plot_histogram(lep_pt[:, 1], 25, (0, 100), "lep_1_pt.png")
-plot_histogram(lep_eta[:, 1], 25, (0, 4), "lep_1_eta.png")
-plot_histogram(lep_phi[:, 1], 25, (0, np.pi), "lep_1_phi.png")
-plot_histogram(lep_E[:, 1], 25, (0, 100), "lep_1_E.png")
-
-
+plot_histogram(
+    lep_pt[:, 1], n_bins=25, range_tuple=(0, 100),
+    xlabel="sub-leading lepton pT", ylabel="counts",
+    title="sub-leading lepton pT after cuts",
+    save_name="lep_1_pt.png")
+plot_histogram(
+    lep_eta[:, 1], n_bins=25, range_tuple=(0, 4),
+    xlabel="sub-leading lepton eta", ylabel="counts",
+    title="sub-leading lepton eta after cuts",
+    save_name="lep_1_eta.png")
+plot_histogram(
+    lep_phi[:, 1], n_bins=25, range_tuple=(0, np.pi),
+    xlabel="sub-leading lepton phi", ylabel="counts",
+    title="sub-leading lepton phi after cuts",
+    save_name="lep_1_phi.png")
+plot_histogram(
+    lep_E[:, 1], n_bins=25, range_tuple=(0, 100),
+    xlabel="sub-leading lepton E", ylabel="counts",
+    title="sub-leading lepton E after cuts",
+    save_name="lep_1_E.png")
 
 # make vectors, construct Z candidates
 lepton_vectors = vector.zip({
@@ -72,11 +120,29 @@ lead_lepton = lepton_vectors[:, 0]
 next_lepton = lepton_vectors[:, 1]
 z_candidate = lead_lepton + next_lepton
 
-# reconstructed mass plot
-plot_histogram(z_candidate.mass, 100, (0, 100), "reco_z_mass.png")
-
-
-plot_histogram(z_candidate.pt, 100, (0, 100), "reco_z_pt.png")
-plot_histogram(z_candidate.eta, 100, (0, 100), "reco_z_eta.png")
-plot_histogram(z_candidate.phi, 100, (0, 100), "reco_z_phi.png")
-plot_histogram(z_candidate.E, 100, (0, 100), "reco_z_E.png")
+# plot reconstructed Z properties
+plot_histogram(
+    z_candidate.mass, n_bins=100, range_tuple=(50, 150),
+    xlabel="reconstructed Z mass", ylabel="counts",
+    title="reconstructed Z mass",
+    save_name="reco_z_mass.png")
+plot_histogram(
+    z_candidate.pt, n_bins=25, range_tuple=(0, 100),
+    xlabel="reconstructed Z pt", ylabel="counts",
+    title="reconstructed Z pt",
+    save_name="reco_z_pt.png")
+plot_histogram(
+    z_candidate.eta, n_bins=25, range_tuple=(0, 4),
+    xlabel="reconstructed Z eta", ylabel="counts",
+    title="reconstructed Z eta",
+    save_name="reco_z_eta.png")
+plot_histogram(
+    z_candidate.phi, n_bins=25, range_tuple=(0, np.pi),
+    xlabel="reconstructed Z phi", ylabel="counts",
+    title="reconstructed Z phi",
+    save_name="reco_z_phi.png")
+plot_histogram(
+    z_candidate.E, n_bins=25, range_tuple=(0, 100),
+    xlabel="reconstructed Z E", ylabel="counts",
+    title="reconstructed Z E",
+    save_name="reco_z_E.png")
