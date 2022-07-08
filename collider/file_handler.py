@@ -21,6 +21,7 @@ def open_file(filename: str,
     # get filename, either as the file in this directory or the OpenData link
     if not os.path.exists(filename):
         filename = OPEN_DATA_URL + filename
+        print(f'Using remote file: {filename}, may be slow!')
 
     # open the file
     root_file = uproot.open(filename)
