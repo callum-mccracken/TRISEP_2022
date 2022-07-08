@@ -8,12 +8,12 @@
 # ]
 # mcmc = MarkovChain(parameters, logP)
 # chain = mcmc.get_chain(1000)
-
 import numpy as np
 from scipy import stats, special
 import pandas as pd
 
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 
 class MarkovChain:
@@ -37,7 +37,7 @@ class MarkovChain:
 
         n_accept = 0
         lp_curr = self.logP(params)
-        for i in range(n_points):
+        for i in tqdm(range(n_points)):
             new_params = params.copy()
             valid = True
             for par_name in self.names:
